@@ -24,7 +24,7 @@ import org.jivesoftware.openfire.cluster.NodeID;
 
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.EntryListener;
-import com.hazelcast.core.MapEvent;
+import com.hazelcast.map.MapEvent;
 
 /**
  * Base listener for cache events in the cluster. This class helps keep track

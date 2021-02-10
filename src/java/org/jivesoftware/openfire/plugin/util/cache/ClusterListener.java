@@ -55,18 +55,18 @@ import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Presence;
 
-import com.hazelcast.core.Cluster;
+import com.hazelcast.cluster.Cluster;
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.EntryEventType;
 import com.hazelcast.core.EntryListener;
 import com.hazelcast.core.LifecycleEvent;
 import com.hazelcast.core.LifecycleEvent.LifecycleState;
 import com.hazelcast.core.LifecycleListener;
-import com.hazelcast.core.MapEvent;
-import com.hazelcast.core.Member;
-import com.hazelcast.core.MemberAttributeEvent;
-import com.hazelcast.core.MembershipEvent;
-import com.hazelcast.core.MembershipListener;
+import com.hazelcast.map.MapEvent;
+import com.hazelcast.cluster.Member;
+import com.hazelcast.cluster.MemberAttributeEvent;
+import com.hazelcast.cluster.MembershipEvent;
+import com.hazelcast.cluster.MembershipListener;
 
 /**
  * ClusterListener reacts to membership changes in the cluster. It takes care of cleaning up the state
@@ -772,6 +772,11 @@ public class ClusterListener implements MembershipListener, LifecycleListener {
 
         @Override
         public void entryRemoved(final EntryEvent<DomainPair, byte[]> event) {
+            handleEntryEvent(event, true);
+        }
+
+        @Override
+        public void entryExpired(final EntryEvent<DomainPair, byte[]> event) {
             handleEntryEvent(event, true);
         }
 

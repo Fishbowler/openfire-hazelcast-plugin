@@ -21,7 +21,8 @@ import org.jivesoftware.openfire.cluster.ClusterNodeInfo;
 import org.jivesoftware.openfire.cluster.NodeID;
 import org.jivesoftware.openfire.plugin.util.cache.ClusteredCacheFactory;
 
-import com.hazelcast.core.Member;
+import com.hazelcast.cluster.Member;
+
 
 /**
  * Cluster Node information as provided by Hazelcast.

@@ -37,6 +37,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
+import com.hazelcast.config.*;
 import org.jivesoftware.openfire.JMXManager;
 import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.cluster.ClusterEventListener;
@@ -59,18 +60,10 @@ import org.jivesoftware.util.cache.ExternalizableUtilStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hazelcast.config.ClasspathXmlConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.MapConfig;
-import com.hazelcast.config.MaxSizeConfig;
-import com.hazelcast.config.MemberAttributeConfig;
-import com.hazelcast.config.MemcacheProtocolConfig;
-import com.hazelcast.config.NetworkConfig;
-import com.hazelcast.config.RestApiConfig;
-import com.hazelcast.core.Cluster;
+import com.hazelcast.cluster.Cluster;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.Member;
+import com.hazelcast.cluster.Member;
 
 /**
  * CacheFactory implementation to use when using Hazelcast in cluster mode.
@@ -278,7 +271,7 @@ public class ClusteredCacheFactory implements CacheFactoryStrategy {
         if (staticConfig == null) {
             final MapConfig dynamicConfig = new MapConfig(name);
             dynamicConfig.setTimeToLiveSeconds(hazelcastLifetimeInSeconds);
-            dynamicConfig.setMaxSizeConfig(new MaxSizeConfig(hazelcastMaxCacheSizeInMegaBytes, MaxSizeConfig.MaxSizePolicy.USED_HEAP_SIZE));
+            dynamicConfig.setEvictionConfig(new EvictionConfig().setSize(hazelcastMaxCacheSizeInMegaBytes).setMaxSizePolicy(MaxSizePolicy.USED_HEAP_SIZE));
             logger.debug("Creating dynamic map config for cache={}, dynamicConfig={}", name, dynamicConfig);
             hazelcast.getConfig().addMapConfig(dynamicConfig);
         } else {

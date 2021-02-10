@@ -27,9 +27,9 @@ import org.jivesoftware.util.cache.CacheFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.hazelcast.core.IMap;
+import com.hazelcast.map.IMap;
 import com.hazelcast.map.listener.MapListener;
-import com.hazelcast.monitor.LocalMapStats;
+import com.hazelcast.map.LocalMapStats;
 
 /**
  * Clustered implementation of the Cache interface using Hazelcast.
